@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block title %} Добавить цель {% endblock %}
+
+{% block content %}
+
+
+<center>
+
+<div style="width: 500px">
+    <center>
+
+        <h1> Добавить цель </h1>
+
+Сегодня
+
+  <div class="">
+
+      <form method="post" class="form-horizontal" role = "form"  action=''>
+
+          {% csrf_token %}
+
+             Описание {{form.target_description}} <br><br>
+             Кол-во  {{form.target}} <br><br>
+
+             Начало    {{form.start_date}} <br>
+
+
+            <script>
+  $( function() {
+    $( "#start_date" ).datepicker(
+    { dateFormat: "dd.mm.yy",
+     firstDay: 1,
+     monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                    'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+     monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+                    'Июл','Авг','Сен','Окт','Ноя','Дек'],
+     dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+     dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+     dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+     changeMonth: true,
+    }
+    );
+  } );
+  </script>
+
+
+<br>
+             Конец  {{form.end_date}}
+
+           <script>
+  $(function() {
+    $( "#end_date" ).datepicker(
+    { dateFormat: "dd.mm.yy",
+     firstDay: 1,
+     monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                    'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+     monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+                    'Июл','Авг','Сен','Окт','Ноя','Дек'],
+     dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+     dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+     dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+     changeMonth: true,
+    }
+    );
+  } );
+  </script>
+
+
+          <br><br>
+
+             Уже сделано  {{form.done}} <br><br>
+             Приоритет в показе {{form.priority}}  <br><br>
+
+
+              <!--'target_description', 'target', 'start_date', 'end_date', 'done', 'priority'-->
+
+
+<input class="btn btn-success" id="done" type="submit" name="submit" value="Сохранить" "
+                                   style ="margin-top: 3px;" />
+
+<br>
+
+
+
+ </form>
+
+      {% if posted_ok %}
+<script>
+   $("#done").remove()
+</script>
+
+    <div class="alert alert-success" role="alert">
+    Цель добавлена!
+    </div>
+
+      <a href="/progress/add_target" class="btn btn-primary" role="button">Добавить еще</a>
+      <a href="/progress/progress" class="btn btn-info" role="button"> К списку задач</a>
+
+     {% endif %}
+
+</div>
+    </center>
+</div>
+
+    </center>
+
+{% endblock %}
+

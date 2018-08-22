@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %} Изменить прогресс {% endblock %}
+
+{% block content %}
+
+
+<div style="width: 500px">
+    <center>
+
+        <h1> Изменить прогресс </h1>
+
+Сегодня
+
+
+  <div class="">
+
+<form  method="post" class="form" action="">
+  {% csrf_token %}
+    <table>
+  {{form.as_table}}
+
+        </table>
+
+<input type="submit" name="submit" value="Сохранить изменения" />
+</form>
+</div>
+    </center>
+</div>
+
+{% endblock %}
+

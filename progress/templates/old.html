@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} Progress {% endblock %}
+
+{% block content %}
+
+<div style="width: 500px; margin-left: 100px;">
+
+        <h1> здесь будет список целей </h1>
+        Сегодня {{ current_date }}
+        <br>
+<a href='add_target'> Добавить новую цель </a>
+
+</div>
+
+
+{% for task in qs %}
+    <br> <br>
+<div style="width: 300px; margin-left: 100px;">
+{{ forloop.counter }}
+    id{{task.id}}
+{{ task.target_description }}: {{task.target}}
+     сделано: {{task.done}} <br>
+     начало: {{task.start_date|date:"d.m.y"}} конец: {{task.end_date|date:" d.m.y"}} <br>
+     разница в днях: {{task.f1}} проценты: {{task.f2}}
+    Редактировать: <a class = '' href= '/progress/edit_target/{{task.id}}'> <img src="{% static "progress/edit.png" %}" alt="edit target"/> </a>
+    Удалить: <a class = '' href= '/progress/delete_target/{{task.id}}'> <img src="{% static "progress/trash.png" %}" alt="delete target"/> </a>
+
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: {{task.f2}}%" aria-valuenow="{{task.f2}}" aria-valuemin="0" aria-valuemax="100">
+     {{task.f2}}%
+
+  </div>
+</div>
+
+</div>
+
+  <!--&lt;!&ndash; iframe начало &ndash;&gt;-->
+
+    <!--<iframe class="embed-responsive-item " id = "{{task.id}}" src="edit_progress/{{task.id}}" ></iframe>-->
+        <!--<br>-->
+
+     <!--<script>-->
+<!--$(document).ready(function(){-->
+    <!--$("#hide{{task.id}}").click(function(){-->
+        <!--$("#{{task.id}}").hide();-->
+    <!--});-->
+    <!--$("#show{{task.id}}").click(function(){-->
+        <!--$("#{{task.id}}").show();-->
+
+    <!--});-->
+<!--});-->
+<!--</script>-->
+
+<!--<button id="hide{{task.id}}">Hide</button>-->
+<!--<button id="show{{task.id}}">Show</button>-->
+
+    <!--&lt;!&ndash; конец iframe &ndash;&gt;-->
+
+
+
+
+{% endfor %}
+
+{% endblock %}
+

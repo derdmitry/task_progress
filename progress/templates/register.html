@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %} Регистрация {% endblock %}
+
+{% block content %}
+<h2>Регистрация</h2>
+
+        {% if registered %}
+        <strong> вы зарегистрированы !</strong>
+
+        <a href="/progress"> на главную  </a> <br />
+        {% else %}
+
+        <strong> Заполните форму для регистрации </strong><br />
+        <a href="/progress"> на главную  </a> <br />
+
+        <form  method="post" class="form" action="">
+            {% csrf_token %}
+            <table>
+            {{user_form.as_table}}
+            </table>
+
+            <input type="submit" name="submit" value="Сохранить данные" />
+        </form>
+
+        {% endif%}
+
+{%endblock%}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} Progress {% endblock %}
+
+{% block extrahead %} {%endblock%}
+
+{% block content %}
+
+<div style="width: 500px; margin-left: 100px;">
+
+    Сегодня {{ current_date }} <br>
+    {%if user.is_authenticated %}
+    Вы вошли как {{ user.get_full_name}}. <a href="/progress/logout/">Выход </a><br />
+    {%endif%}
+
+    <h1> Прогресс </h1>
+
+    <a href='add_target'> Добавить новую цель </a>
+
+</div>
+
+<div style="width: 300px; margin-left: 100px;">
+
+    {% for task in qs %}
+    <br> <br>
+
+    {{ forloop.counter }}
+    id {{task.id}}
+    {{ task.target_description }}: {{task.target}}
+    сделано: {{task.done}} <br>
+    начало: {{task.start_date|date:"d.m.y"}} конец: {{task.end_date|date:" d.m.y"}} <br>
+    разница в днях: {{task.f1}} проценты: {{task.f2}}
+
+    {% if task.target <= 0 %}
+
+    <div class="alert alert-warning" role="alert">
+     Цель меньше или равна нулю
+     </div>
+      {% endif%}
+
+    Редактировать: <a class='' href='/progress/edit_target/{{task.id}}'> <img src="{% static 'progress/edit.png' %}"
+    alt="edit target"/> </a>
+    Удалить: <a class='' href='/progress/delete_target/{{task.id}}'> <img src="{% static 'progress/trash.png' %}"
+    alt="delete target"/> </a>
+
+
+
+    <div class="progress">
+
+        {%if task.f1 < 0 %}
+
+        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: {{task.f2}}%"
+             aria-valuenow="{{task.f2}}"
+             aria-valuemin="0" aria-valuemax="100">
+            {{task.f2}}%
+            <br>
+        </div>
+        {%else%}
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{task.f2}}%"
+             aria-valuenow="{{task.f2}}"
+             aria-valuemin="0" aria-valuemax="100">
+
+            {{task.f2}}%
+            <br>
+        </div>
+        {% endif%}
+
+    </div>
+
+
+    <form id='form{{task.id}}' action="" method="post" style="display:none;">
+        {% csrf_token %}
+
+        <input name="id" type="hidden" value="{{task.id}}">
+        <input name="new_progress" type="number" size="4" value="{{task.done}}"> <br>
+        <input type="submit" value="Сохранить" form="form{{task.id}}">
+
+    </form>
+
+    <!-- скрипт для кнопок -->
+    <script>
+$(document).ready(function(){
+    $("#hide{{task.id}}").click(function(){
+        $("#form{{task.id}}").hide();
+    });
+    $("#show{{task.id}}").click(function(){
+        $("#form{{task.id}}").show();
+    });
+});
+    </script>
+    <!-- конец скрипта для кнопок -->
+
+    <button id="show{{task.id}}">+</button>
+
+
+    {% endfor %}
+
+    {% endblock %}
+

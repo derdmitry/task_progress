@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} Вход {% endblock %}
+
+{% block content %}
+<h2>Вход</h2>
+
+        <form id="login_form" method="post" action="/progress/login/">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="50" />
+            <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br />
+
+            <input type="submit" value="войти" />
+        </form>
+
+{%endblock%}

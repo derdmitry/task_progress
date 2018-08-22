@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %} Удалить цель {% endblock %}
+
+{% block content %}
+
+
+<div style="width: 500px">
+    <center>
+
+        <h1> Вы дейтсвительно хотите удалить эту цель? </h1>
+
+
+  <div class="">
+
+
+<form  method="post" class="form" action="">
+  {% csrf_token %}
+    <table>
+  {{form.as_table}}
+
+        </table>
+
+<input type="submit" name="submit" value="Удалить цель" />
+
+</form>
+</div>
+    </center>
+</div>
+
+{% endblock %}
+

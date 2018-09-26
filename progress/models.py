@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Target(models.Model):
-    user = models.CharField(max_length= 50, default= "Ellen")
+    user = models.ForeignKey(User)
     target_description = models.CharField(max_length=300)
     target = models.SmallIntegerField(default=0)
     start_date = models.DateField()

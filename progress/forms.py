@@ -9,7 +9,7 @@ class TargetForm(forms.ModelForm):
     class Meta:
         model = Target
         fields = ['target_description', 'target', 'start_date', 'end_date', 'done', 'priority']
-        exclude = ('user',)
+        #exclude = ('user',)
         start_date = forms.DateField(localize=True)
 
         labels = {

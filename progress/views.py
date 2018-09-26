@@ -8,47 +8,37 @@ from django.views import generic
 from django.forms.models import modelformset_factory
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 def index(request):
     message = 'Первая страница'
     return render(request, 'index.html', locals())
 
-
-def show(request):
-    # gjrfpfnm ghjuhtcc
+@login_required
+def progress(request):
     from datetime import date
     current_date = date.today()
-    message = 'Здесь будет прогресс'
+    message = 'Здесь будет прогресс -2'
+    result = "непонятно"
 
-    qs = Target.objects.order_by('priority')
-    add_progress_form = AddProgressForm()
+    qs = Target.objects.filter(user=request.user.id).order_by('priority')
 
-    return render(request, 'show.html', locals())
+    #qs = Target.objects.order_by('priority')
 
-
-def add_target(request):
-    # добавить новую цель
-    posted_ok = False
     if request.method == 'POST':
-        form = TargetForm(request.POST)
-        # Have we been provided with a valid form?
-        if form.is_valid():
-            # Save the new category to the database.
-            form.save(commit=True)
-            posted_ok = True
-            return render(request, 'add_target.html', locals())
-        else:
-            # The supplied form contained errors - just print them to the terminal.
-            message = "Ошибка"
-            return render(request, 'error_page.html', locals())
-    else:
-        # If the request was not a POST, display the form to enter details.
-        form = TargetForm()
+        task_id = request.POST.get('id')
+        new_progress = request.POST.get('new_progress')
 
-    # Bad form (or form details), no form supplied...
-    # Render the form with error messages (if any).
-    return render(request, 'add_target.html', locals())
+        instances = Target.objects.filter(pk=task_id)
+        instance = instances[0]
+        instance.done = new_progress
+        instance.save()
+
+    return render(request, 'progress.html', locals())
+
+
+
 
 
 def edit_target(request, id):
@@ -194,6 +184,35 @@ def user_logout(request):
     return redirect('index')
 
 
+@login_required
+def add_target(request):
+    # добавить новую цель
+    posted_ok = False
+    if request.method == 'POST':
+        form = TargetForm(request.POST)
+
+        if form.is_valid():
+
+            new_item = form.save(commit=False)
+            new_item.user_id = request.user.id #добвавление id пользователя
+            #new_item.user_id= 1288
+            new_item.save()
+            posted_ok = True
+            return render(request, 'add_target.html', locals())
+        else:
+            # The supplied form contained errors - just print them to the terminal.
+            message = "Ошибка"
+            return render(request, 'error_page.html', locals())
+    else:
+        # If the request was not a POST, display the form to enter details.
+        form = TargetForm()
+
+    # Bad form (or form details), no form supplied...
+    # Render the form with error messages (if any).
+    return render(request, 'add_target.html', locals())
+
+
+
 # мои пробы
 
 def trial(request):
@@ -227,24 +246,18 @@ def trial(request):
 
                   )
 
-def progress(request):
+
+def show(request):
+    # gjrfpfnm ghjuhtcc
     from datetime import date
     current_date = date.today()
-    message = 'Здесь будет прогресс -2'
-    result = "непонятно"
+    message = 'Здесь будет прогресс'
 
     qs = Target.objects.order_by('priority')
+    add_progress_form = AddProgressForm()
 
-    if request.method == 'POST':
-        task_id = request.POST.get('id')
-        new_progress = request.POST.get('new_progress')
-
-        instances = Target.objects.filter(pk=task_id)
-        instance = instances[0]
-        instance.done = new_progress
-        instance.save()
+    return render(request, 'show.html', locals())
 
 
-    return render(request, 'progress.html', locals())
 
 

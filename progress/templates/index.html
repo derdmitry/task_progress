@@ -6,22 +6,31 @@
 
 
 {% block content %}
+<br><br>
+<div class="container">
+  <div class="row">
+
+<div class="col"></div>
+
+    <div class="col-md-6 col-sm-12">
+
+      <div class="jumbotron">
 <center>
+  <h1 class="display-4">Track your progress</h1>
+  <p class="lead"> Ставьте цели и отслеживайте их</p>
+  <hr class="my-4">
+  <p> Вперед к совершенству</p>
+    </center>
+  <a href="/progress/login" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">Вход</a>
+<a href="/progress/register" class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Регистрация</a>
 
-<h1> Страница входа. Здесь будет пароль </h1>
- <a href= '/progress/register'> Регистация </a> <br>
- <a href= '/progress/login'> вход </a> <br>
+</div>
+    </div>
+<div class="col"></div>
+  </div>
 
-    <br>
+</div>
 
-{{message}} <br>
-
-     <a href= '/progress/progress'> ПРОБА 2 </a> <br>
-
-    <br>
-
-
-   </center>
 
 {% endblock %}
 

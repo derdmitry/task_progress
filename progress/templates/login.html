@@ -2,16 +2,43 @@
 {% block title %} Вход {% endblock %}
 
 {% block content %}
-<h2>Вход</h2>
 
-        <form id="login_form" method="post" action="/progress/login/">
-            {% csrf_token %}
-            Username: <input type="text" name="username" value="" size="50" />
-            <br />
-            Password: <input type="password" name="password" value="" size="50" />
-            <br />
+<br><br>
+<div class="container">
+    <div class="row">
 
-            <input type="submit" value="войти" />
-        </form>
+        <div class="col"></div>
+
+        <div class="col-md-6 col-sm-12">
+
+            <div class="jumbotron">
+                <center>
+                    <h1 class="display-4">Track your progress</h1>
+                    <p class="lead"> Ставьте цели и отслеживайте их</p>
+                    <hr class="my-4">
+                    <p> Вперед к совершенству</p>
+                </center>
+
+                <form id="login_form" method="post" action="/progress/login/">
+                    {% csrf_token %}
+                    <div class="form-group">
+
+                        <input type="text" class="form-control" id="inputusername" name="username"
+                               placeholder="Введите логин ">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password"
+                               placeholder="Ведите пароль">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Вход</button>
+                    <a href="/progress/register" class="btn btn-secondary btn-lg btn-block" role="button"
+                       aria-pressed="true">Регистрация</a>
+                </form>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
 
 {%endblock%}

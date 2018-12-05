@@ -2,26 +2,81 @@
 {% block title %} Регистрация {% endblock %}
 
 {% block content %}
-<h2>Регистрация</h2>
 
-        {% if registered %}
-        <strong> вы зарегистрированы !</strong>
+{% if registered %}
 
-        <a href="/progress"> на главную  </a> <br />
-        {% else %}
+<div class="container">
+    <div class="row">
 
-        <strong> Заполните форму для регистрации </strong><br />
-        <a href="/progress"> на главную  </a> <br />
+        <div class="col"></div>
 
-        <form  method="post" class="form" action="">
-            {% csrf_token %}
-            <table>
-            {{user_form.as_table}}
-            </table>
+        <div class="col-md-6 col-sm-12">
 
-            <input type="submit" name="submit" value="Сохранить данные" />
-        </form>
+            <div class="jumbotron">
+                <center>
+                    <h1 class="display-4"> Вы зарегистрированы ! </h1>
 
-        {% endif%}
+                    <hr class="my-4">
+
+                    <a href="/progress" class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Войти</a>
+
+
+                </center>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+
+{% else %}
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col"></div>
+
+        <div class="col-md-6 col-sm-12">
+
+            <div class="jumbotron">
+                <center>
+                    <h1 class="display-4"> Регистрация </h1>
+                    <p class="lead"> заполняем форму</p>
+                    <hr class="my-4">
+
+
+                </center>
+
+
+                <form id="" method="post" action="" role="form" class="form-horizontal">
+                    {% csrf_token %}
+
+                    {% for field in user_form %}
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"> {{field.label}}</label>
+                        <div class="col-sm-10">
+                            {{ field }}
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                    <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block"
+                           value="Сохранить данные"/>
+                    <a href="/progress/register" class="btn btn-secondary btn-lg btn-block" role="button"
+                       aria-pressed="true">Очистить форму</a>
+                    <a href="/progress" class="btn  btn-success btn-lg btn-block" role="button" aria-pressed="true">Уже
+                        зарегистрированы? Войти</a>
+                </form>
+                {% endif%}
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
 
 {%endblock%}

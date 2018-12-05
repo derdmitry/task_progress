@@ -10,10 +10,12 @@
 
     Сегодня {{ current_date }} <br>
     {%if user.is_authenticated %}
-    Вы вошли как {{ user.get_full_name}}. <a href="/progress/logout/">Выход </a><br />
+    Вы вошли как {{user.username}}. <a href="/progress/logout/">Выход </a><br />
     {%endif%}
-
-    <h1> Прогресс </h1>
+    <br>
+    current_user_id {{current_user_id}}
+    <br>
+    <h1> {{message}} </h1>
 
     <a href='add_target'> Добавить новую цель </a>
 
@@ -25,7 +27,9 @@
     <br> <br>
 
     {{ forloop.counter }}
-    id {{task.id}}
+    id {{task.id}} <br>
+    автор {{task.user}}<br>
+
     {{ task.target_description }}: {{task.target}}
     сделано: {{task.done}} <br>
     начало: {{task.start_date|date:"d.m.y"}} конец: {{task.end_date|date:" d.m.y"}} <br>

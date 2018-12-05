@@ -2,7 +2,8 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-url(r'^$', views.index, name='index'),
+#url(r'^$', views.index, name='index'),
+url(r'^$',  views.user_login, name='login'),
 url(r'^add_target', views.add_target, name='add_target'),
 url(r'^edit_target/(.+)', views.edit_target, name='edit_target'),
 url(r'^progress', views.progress, name='progress'),

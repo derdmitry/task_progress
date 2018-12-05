@@ -39,9 +39,24 @@ class AddProgressForm(forms.ModelForm):
 
 #for registration
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+    #password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'password')
+        labels = {
+            'username': 'Логин',
+            'first_name': 'Имя',
+            'email': 'E-mail',
+            'password': 'Пароль',
+        }
+
+        widgets = {'username': forms.TextInput(attrs={'class': 'form-control'}),
+                   'first_name': forms.TextInput(attrs={'class': 'form-control', 'required': 'required'}),
+                   'email': forms.EmailInput(attrs={'class': 'form-control'}),
+                   'password': forms.PasswordInput(attrs={'class': 'form-control'}),
+                   }
+
+        help_texts = {'username': 'Буквы, цифры и символы _, @, +, . - '
+                      }
 

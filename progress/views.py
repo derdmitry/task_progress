@@ -115,7 +115,7 @@ def register(request):
             registered = True
 
         else:
-            print(user_form.errors)
+            # print(user_form.errors)
             # !обработать неправильный ввод!
             message = user_form.errors
             return render(request, 'error_page.html', locals())
@@ -165,8 +165,9 @@ def user_login(request):
         else:
             # Bad login details were provided. So we can't log the user in.
             print("Invalid login details: {0}, {1}".format(username, password))
-            return HttpResponse("Неправильный логин или пароль!") #Обработать
-
+            #return HttpResponse("Неправильный логин или пароль!") #Обработать
+            message = "Неправильный логин или пароль!"
+            return render(request, 'error_page.html', locals())
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
@@ -181,7 +182,8 @@ def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
     # Take the user back to the homepage.
-    return redirect('index')
+    return redirect('login')
+
 
 
 @login_required

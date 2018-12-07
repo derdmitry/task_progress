@@ -40,6 +40,7 @@ def progress(request):
 def edit_target(request, id):
     from datetime import date
     current_date = date.today()
+    posted_ok = False
 
     targets = Target.objects.filter(pk=id)  # ищем нужную запись по id
     target = targets[0]  # она должна существовать
@@ -47,16 +48,20 @@ def edit_target(request, id):
         form = TargetForm(request.POST, instance=target)  # и передаем ее в instance
         if form.is_valid():
             # task.archive = 'yes'
+
             form.save(commit=True)
-            return redirect('progress')  # удобная функция из django.shortcuts
-            # return render(request, 'list2.html', locals())
+            posted_ok = True
+            messages.add_message(request, messages.SUCCESS, "Цель изменена, продолжаем работать")
+
+            return redirect('progress')
         else:
-            message = "Ошибка"
-            return render(request, 'error_page.html', locals())
+            #form = TargetForm(instance=target)
+            errs = form.errors
+            return render(request, 'edit_target.html', locals())
     else:
         form = TargetForm(instance=target)
 
-    return render(request, 'edit_target.html', {'form': form})
+    return render(request, 'edit_target.html', locals() )
 
 @login_required
 def edit_progress(request, id):
@@ -67,7 +72,7 @@ def edit_progress(request, id):
         if form.is_valid():
             # task.archive = 'yes'
             form.save(commit=True)
-            return redirect('show')  # удобная функция из django.shortcuts
+            return redirect('progress')  # удобная функция из django.shortcuts
             # return render(request, 'edit_progress.html', {'form': form})
         else:
             message = "Ошибка"
@@ -86,7 +91,7 @@ def delete_target(request, id):
         if form.is_valid():
             target.delete()
             # form.save(commit=True)
-            messages.add_message(request, messages.SUCCESS, "Цели больше нет")
+            messages.add_message(request, messages.SUCCESS, "Цель удалена, продолжаем работать")
             return redirect('progress')  # удобная функция из django.shortcuts
             # return render(request, 'list2.html', locals())
         else:
@@ -204,7 +209,7 @@ def add_target(request):
             return render(request, 'add_target.html', locals())
         else:
             # The supplied form contained errors - just print them to the terminal.
-            print(form.errors)
+
             errs = form.errors
             #return render(request, 'error_page.html', locals())
             #form = TargetForm()

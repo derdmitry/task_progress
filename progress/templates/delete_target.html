@@ -6,28 +6,89 @@
 {% block content %}
 
 
-<div style="width: 500px">
-    <center>
+<!--<div style="width: 500px">-->
+<!--<center>-->
 
-        <h1> Вы дейтсвительно хотите удалить эту цель? </h1>
-
-
-  <div class="">
+<!--<h1> Вы дейтсвительно хотите удалить эту цель? </h1>-->
 
 
-<form  method="post" class="form" action="">
-  {% csrf_token %}
-    <table>
-  {{form.as_table}}
+<!--<div class="">-->
 
-        </table>
 
-<input type="submit" name="submit" value="Удалить цель" />
+<!--<form  method="post" class="form" action="">-->
+<!--{% csrf_token %}-->
+<!--<table>-->
+<!--{{form.as_table}}-->
 
-</form>
+<!--</table>-->
+
+<!--<input type="submit" name="submit" value="Удалить цель" />-->
+
+<!--</form>-->
+<!--</div>-->
+<!--</center>-->
+<!--</div>-->
+
+<div class="container">
+    <div class="row">
+
+        <div class="col"></div>
+
+        <div class="col-md-6 col-sm-12">
+
+            <div class="jumbotron">
+                <center>
+                    <h1 class="display-4"> Вы дейтсвительно хотите удалить эту цель?</h1>
+                     <div class="alert alert-warning" role="alert">
+                        восстановление невозможно
+                    </div>
+                    <hr class="my-4">
+
+
+                </center>
+
+                <form method="post" class="form-horizontal" role="form" action=''>
+
+                    {% csrf_token %}
+
+                    <div class="form-group">
+
+
+                        <label class="col-sm-4 control-label"> Описание </label>
+                        {{form.target_description}} <br>
+                        <label class="col-sm-4 control-label"> Кол-во </label>
+                        {{form.target}} <br>
+                        <label class="col-sm-4 control-label"> Начало </label>
+                        {{form.start_date}} <br>
+                        <label class="col-sm-4 control-label"> Конец </label>
+                        {{form.end_date}}
+                        <label class="col-sm-4 control-label"> Сделано </label>
+                        {{form.done}} <br>
+                        <label class="col-sm-4 control-label"> Приоритет </label>
+                        {{form.priority}}
+
+                    </div>
+
+                <button type="submit" class="btn btn-success btn-lg btn-block"> Да, удаляем</button>
+                     <a href='/progress/edit_target/{{target.id}}' class="btn btn-warning btn-lg btn-block" role="button"
+                       aria-pressed="true"  style ="margin-bottom: 0.5rem;"> Редактировать </a>
+
+                </form>
+
+
+
+
+
+                <a href="/progress/progress" class="btn btn-primary btn-lg btn-block" role="button"
+                       aria-pressed="true"> К списку задач </a>
+
+
+
+        </div>
+    </div>
+    <div class="col"></div>
 </div>
-    </center>
-</div>
+
 
 {% endblock %}
 

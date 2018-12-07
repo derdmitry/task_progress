@@ -100,7 +100,7 @@ def delete_target(request, id):
     else:
         form = TargetForm(instance=target)
 
-    return render(request, 'delete_target.html', {'form': form})
+    return render(request, 'delete_target.html', locals())
 
 
 #_____registration__________________

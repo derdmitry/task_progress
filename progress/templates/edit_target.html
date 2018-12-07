@@ -6,28 +6,161 @@
 {% block content %}
 
 
-<div style="width: 500px">
-    <center>
+<!--<div style="width: 500px">-->
+    <!--<center>-->
 
-        <h1> Изменить цель </h1>
+        <!--<h1> Изменить цель </h1>-->
 
-Сегодня {{ current_date }}
+<!--Сегодня {{ current_date }}-->
 
-  <div class="">
-{{name}}
+  <!--<div class="">-->
+<!--{{name}}-->
 
-<form  method="post" class="form" action="">
-  {% csrf_token %}
-    <table>
-  {{form.as_table}}
+<!--<form  method="post" class="form" action="">-->
+  <!--{% csrf_token %}-->
+    <!--<table>-->
+  <!--{{form.as_table}}-->
 
-        </table>
+        <!--</table>-->
 
-<input type="submit" name="submit" value="Изменить цель" />
-</form>
-</div>
-    </center>
-</div>
+<!--<input type="submit" name="submit" value="Изменить цель" />-->
+<!--</form>-->
+
+
+
+
+
+<!--</div>-->
+    <!--</center>-->
+<!--</div>-->
+
+<!--___________________________________-->
+
+<div class="container">
+    <div class="row">
+
+        <div class="col"></div>
+
+        <div class="col-md-6 col-sm-12">
+
+            <div class="jumbotron">
+                <center>
+                    <h1 class="display-4"> Редактировать цель</h1>
+                    <p class="lead"> сегодня {{current_date}}</p>
+                    <hr class="my-4">
+
+                </center>
+
+
+
+                <form method="post" class="form-horizontal" role="form" action=''>
+
+                            {% csrf_token %}
+
+                              <div class="form-group">
+
+                                  <label class="col-sm-4 control-label"> Описание </label>
+                            {{form.target_description}} <br>
+                                   <label class="col-sm-4 control-label"> Кол-во </label>
+                             {{form.target}} <br>
+                             <label class="col-sm-4 control-label"> Начало </label>
+                            {{form.start_date}} <br>
+
+                            <script>
+  $( function() {
+    $( "#start_date" ).datepicker(
+    { dateFormat: "dd.mm.yy",
+     firstDay: 1,
+     monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                    'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+     monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+                    'Июл','Авг','Сен','Окт','Ноя','Дек'],
+     dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+     dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+     dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+     changeMonth: true,
+    }
+    );
+  } );
+
+  </script>
+
+
+
+
+                            <label class="col-sm-4 control-label"> Конец </label>
+                                  {{form.end_date}}
+
+                            <script>
+  $(function() {
+    $( "#end_date" ).datepicker(
+    { dateFormat: "dd.mm.yy",
+     firstDay: 1,
+     monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь',
+                    'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+     monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн',
+                    'Июл','Авг','Сен','Окт','Ноя','Дек'],
+     dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+     dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+     dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
+     changeMonth: true,
+    }
+    );
+  } );
+
+                            </script>
+                            <br>
+
+                    {% if form.non_field_errors|length > 0%}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {%endif%}
+
+
+                                   <label class="col-sm-4 control-label">  Сделано </label>
+                            {{form.done}} <br>
+                                   <label class="col-sm-4 control-label"> Приоритет </label>
+                             {{form.priority}}
+
+                              </div>
+
+
+
+                    <input class="btn btn-success btn-lg btn-block" id="done" type="submit" name="submit" value="Сохранить"
+                            style ="margin-bottom: 0.5rem;" />
+
+                        </form>
+
+                <a href="/progress/progress" class="btn btn-primary btn-lg btn-block" role="button"
+                       aria-pressed="true"> К списку задач </a>
+
+                 
+
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock %}
 

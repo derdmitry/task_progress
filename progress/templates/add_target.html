@@ -7,28 +7,38 @@
 {% block content %}
 
 
-<center>
 
-<div style="width: 500px">
-    <center>
+<div class="container">
+    <div class="row">
 
-        <h1> Добавить цель </h1>
+        <div class="col"></div>
 
-Сегодня
+        <div class="col-md-6 col-sm-12">
 
-  <div class="">
+            <div class="jumbotron">
+                <center>
+                    <h1 class="display-4">Добавить цель</h1>
+                    <p class="lead"> сегодня {{current_date}}</p>
+                    <hr class="my-4">
 
-      <form method="post" class="form-horizontal" role = "form"  action=''>
-
-          {% csrf_token %}
-
-             Описание {{form.target_description}} <br><br>
-             Кол-во  {{form.target}} <br><br>
-
-             Начало    {{form.start_date}} <br>
+                </center>
 
 
-            <script>
+
+                <form method="post" class="form-horizontal" role="form" action=''>
+
+                            {% csrf_token %}
+
+                              <div class="form-group">
+
+                                  <label class="col-sm-4 control-label"> Описание </label>
+                            {{form.target_description}} <br>
+                                   <label class="col-sm-4 control-label"> Кол-во </label>
+                             {{form.target}} <br>
+                             <label class="col-sm-4 control-label"> Начало </label>
+                            {{form.start_date}} <br>
+
+                            <script>
   $( function() {
     $( "#start_date" ).datepicker(
     { dateFormat: "dd.mm.yy",
@@ -44,13 +54,16 @@
     }
     );
   } );
+
   </script>
 
 
-<br>
-             Конец  {{form.end_date}}
 
-           <script>
+
+                            <label class="col-sm-4 control-label"> Конец </label>
+                                  {{form.end_date}}
+
+                            <script>
   $(function() {
     $( "#end_date" ).datepicker(
     { dateFormat: "dd.mm.yy",
@@ -66,46 +79,60 @@
     }
     );
   } );
-  </script>
+
+                            </script>
+                            <br>
+
+                    {% if form.non_field_errors|length > 0%}
+                    <div class="alert alert-danger" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                    {%endif%}
 
 
-          <br><br>
+                                   <label class="col-sm-4 control-label">  Сделано </label>
+                            {{form.done}} <br>
+                                   <label class="col-sm-4 control-label"> Приоритет </label>
+                             {{form.priority}}
 
-             Уже сделано  {{form.done}} <br><br>
-             Приоритет в показе {{form.priority}}  <br><br>
+                              </div>
 
+                            <!--<button type="submit" class="btn btn-primary btn-lg btn-block">Вход</button>-->
+                    <!--<a href="/progress/register" class="btn btn-secondary btn-lg btn-block" role="button"-->
+                       <!--aria-pressed="true">Регистрация</a>-->
 
-              <!--'target_description', 'target', 'start_date', 'end_date', 'done', 'priority'-->
+                            <input class="btn btn-success btn-lg btn-block" id="done" type="submit" name="submit" value="Сохранить" "
+                            style ="margin-top: 3px;" />
 
+                        </form>
+                <a href="/progress/add_target" class="btn btn-secondary btn-lg btn-block" role="button"
+                       aria-pressed="true">Очистить форму</a>
+                <a href="/progress/progress" class="btn btn-primary btn-lg btn-block" role="button"
+                       aria-pressed="true"> К списку задач </a>
 
-<input class="btn btn-success" id="done" type="submit" name="submit" value="Сохранить" "
-                                   style ="margin-top: 3px;" />
+                 {% if posted_ok %}
 
-<br>
-
-
-
- </form>
-
-      {% if posted_ok %}
-<script>
+                        <script>
    $("#done").remove()
-</script>
 
-    <div class="alert alert-success" role="alert">
-    Цель добавлена!
+                        </script>
+
+                        <div class="alert alert-success" role="alert">
+                            Цель добавлена!
+                        </div>
+
+                        <a href="/progress/add_target" class="btn btn-info btn-lg btn-block" role="button">Добавить еще</a>
+
+
+                        {% endif %}
+
+            </div>
+        </div>
+        <div class="col"></div>
     </div>
 
-      <a href="/progress/add_target" class="btn btn-primary" role="button">Добавить еще</a>
-      <a href="/progress/progress" class="btn btn-info" role="button"> К списку задач</a>
 
-     {% endif %}
 
-</div>
-    </center>
-</div>
-
-    </center>
 
 {% endblock %}
 

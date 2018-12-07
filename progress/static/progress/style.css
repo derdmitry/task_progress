@@ -36,12 +36,22 @@ abbr,acronym { border: 0;
 /* end of reset */
 
 body {
-    background: #f3f3ed;
+    background-color: rgb(178, 204, 210);
     height: 100%;
-    font-size: 15px;
-    font-family: 'Scada', sans-serif;
-    color: navy;
+    font-size:  1.5rem;
+    font-family: 'Rubik', sans-serif;
+    color: black;
 }
 
-h1 {color: red;
+h1 {
+    color: black;
+    font-size:  2rem!important;
+}
+
+.progress {
+    background-color: #a4b9ce!important;
+    margin-top: 0.5rem!important;
+    margin-bottom: 0.5rem!omportant;
+    height: 2rem;
+
 }

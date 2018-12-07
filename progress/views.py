@@ -9,6 +9,8 @@ from django.forms.models import modelformset_factory
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
+from django.contrib import messages
 
 
 def index(request):
@@ -19,13 +21,10 @@ def index(request):
 def progress(request):
     from datetime import date
     current_date = date.today()
-    message = 'Здесь будет прогресс -2'
-    result = "непонятно"
 
     qs = Target.objects.filter(user=request.user.id).order_by('priority')
 
-    #qs = Target.objects.order_by('priority')
-
+    # новый прогресс
     if request.method == 'POST':
         task_id = request.POST.get('id')
         new_progress = request.POST.get('new_progress')
@@ -37,11 +36,11 @@ def progress(request):
 
     return render(request, 'progress.html', locals())
 
-
-
-
-
+@login_required
 def edit_target(request, id):
+    from datetime import date
+    current_date = date.today()
+
     targets = Target.objects.filter(pk=id)  # ищем нужную запись по id
     target = targets[0]  # она должна существовать
     if request.method == 'POST':
@@ -59,7 +58,7 @@ def edit_target(request, id):
 
     return render(request, 'edit_target.html', {'form': form})
 
-
+@login_required
 def edit_progress(request, id):
     targets = Target.objects.filter(pk=id)  # ищем нужную запись по id
     target = targets[0]  # она должна существовать
@@ -78,7 +77,7 @@ def edit_progress(request, id):
 
     return render(request, 'edit_progress.html', {'form': form})
 
-
+@login_required
 def delete_target(request, id):
     targets = Target.objects.filter(pk=id)  # ищем нужную запись по id
     target = targets[0]  # она должна существовать
@@ -161,13 +160,14 @@ def user_login(request):
                 return redirect('progress')
             else:
                 # An inactive account was used - no logging in!
-                return HttpResponse("Ваш аккунт не активен")
+                #eturn HttpResponse("Ваш аккунт не активен")
+                messages.add_message(request, messages.WARNING, "Ваш аккунт не активен")
+                return render(request, 'login.html', {})
         else:
             # Bad login details were provided. So we can't log the user in.
-            print("Invalid login details: {0}, {1}".format(username, password))
-            #return HttpResponse("Неправильный логин или пароль!") #Обработать
-            message = "Неправильный логин или пароль!"
-            return render(request, 'error_page.html', locals())
+            messages.add_message(request, messages.ERROR, "Неправильный логин или пароль")
+            return render(request, 'login.html', {})
+
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
@@ -185,9 +185,10 @@ def user_logout(request):
     return redirect('login')
 
 
-
 @login_required
 def add_target(request):
+    from datetime import date
+    current_date = date.today()
     # добавить новую цель
     posted_ok = False
     if request.method == 'POST':
@@ -203,8 +204,11 @@ def add_target(request):
             return render(request, 'add_target.html', locals())
         else:
             # The supplied form contained errors - just print them to the terminal.
-            message = "Ошибка"
-            return render(request, 'error_page.html', locals())
+            print(form.errors)
+            errs = form.errors
+            #return render(request, 'error_page.html', locals())
+            #form = TargetForm()
+            return render(request, 'add_target.html', locals())
     else:
         # If the request was not a POST, display the form to enter details.
         form = TargetForm()
@@ -215,50 +219,6 @@ def add_target(request):
 
 
 
-# мои пробы
-
-def trial(request):
-    from datetime import date
-    current_date = date.today()
-    message = 'Здесь будет прогресс'
-
-    AddProgressFormset = modelformset_factory(Target, fields=('done',), extra=0, )
-    qs = Target.objects.order_by('priority')
-    if request.method == "POST":
-        # qs = Target.objects.order_by('priority')
-        formset = AddProgressFormset(request.POST, request.FILES,
-                                     queryset=qs)
-        if formset.is_valid():
-            formset.save()
-            return redirect('show')
-            #return render(request, 'show.html')
-    else:
-        # qs = Target.objects.order_by('priority')
-        formset = AddProgressFormset(queryset=qs)
-
-    data = []
-
-    for i in range(len(qs)):
-        data.append([qs[i],formset[i]])
-
-    return render(request, 'show.html', {'formset': formset,
-                                          'current_date': current_date,
-                                          'data': data,
-                                         }
-
-                  )
-
-
-def show(request):
-    # gjrfpfnm ghjuhtcc
-    from datetime import date
-    current_date = date.today()
-    message = 'Здесь будет прогресс'
-
-    qs = Target.objects.order_by('priority')
-    add_progress_form = AddProgressForm()
-
-    return render(request, 'show.html', locals())
 
 
 

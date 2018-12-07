@@ -6,6 +6,16 @@ from .models import Target
 
 class TargetForm(forms.ModelForm):
 
+    def clean(self):
+        cleaned_data = super(TargetForm, self).clean()
+        if cleaned_data['start_date'] > cleaned_data['end_date']:
+            raise forms.ValidationError("Как может быть дата начала позже даты окончания? Исправляем.", code="invalid")
+
+        # if cleaned_data['target'] < 0:
+        #     raise forms.ValidationError("Отрицательная цель выглядит странно. Испрааляем.", code="invalid")
+
+        return cleaned_data
+
     class Meta:
         model = Target
         fields = ['target_description', 'target', 'start_date', 'end_date', 'done', 'priority']

@@ -50,9 +50,27 @@
 
             <div class="jumbotron">
                 <center>
-                    <h1 class="display-4"> {{ task.target_description }} </h1>
-                    <p class="lead"> cделать {{ task.target}} к {{task.end_date}}</p>
+                    <h1 class="display-4"> {{ task.target_description }}: {{task.target}} </h1>
+                    <p class="lead"> к {{task.end_date}}</p>
+                    <p class="lead"> ежедневно {{task.daily|floatformat:'1'}}</p>
                     <p class="lead">
+
+                         {% if task.end_date < current_date and task.done < task.target %}
+
+                    <div class="alert alert-danger" role="alert">
+                        Задача просрочена
+                    </div>
+                    {%endif%}
+
+                    {% if task.done >= task.target %}
+
+                    <div class="alert alert-success" role="alert">
+                        Цель достинута! В зал славы?(сделать)
+                    </div>
+                    {%endif%}
+
+
+
                     Редактировать: <a class='' href='/progress/edit_target/{{task.id}}'>
                         <img
                         src="{% static 'progress/edit.png' %}"
@@ -63,6 +81,8 @@
                         alt="delete target"/> </a>
 
                     <hr class="my-4">
+
+
 
  <form id='form{{task.id}}' action="" method="post" style="display:none;">
         {% csrf_token %}
@@ -91,7 +111,9 @@ $(document).ready(function(){
 
                     сделано: {{task.done}} <br>
 
-                    {{task.word}}
+
+                    {{task.word}}: разница в днях {{task.f1|floatformat:'1'}}
+
 
                     {% if task.target <= 0 %}
 
@@ -114,7 +136,7 @@ $(document).ready(function(){
                         </div>
                         {%else%}
                         <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
-                             style="width: {{task.f2}}%"
+                             style="width:{{task.f2}}%"
                              aria-valuenow="{{task.f2}}"
                              aria-valuemin="0" aria-valuemax="100">
 
@@ -126,14 +148,6 @@ $(document).ready(function(){
                     </div>
 
 
-                    Редактировать: <a class='' href='/progress/edit_target/{{task.id}}'>
-                        <img
-                        src="{% static 'progress/edit.png' %}"
-                        alt="edit target"/> </a>
-                    Удалить: <a class='' href='/progress/delete_target/{{task.id}}'>
-                        <img
-                        src="{% static 'progress/trash.png' %}"
-                        alt="delete target"/> </a>
 
 
                 </center>

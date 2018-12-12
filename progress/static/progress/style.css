@@ -51,9 +51,17 @@ h1 {
 .progress {
     background-color: #a4b9ce!important;
     margin-top: 0.5rem!important;
-    margin-bottom: 0.5rem!omportant;
     height: 2rem;
 }
+
+.progress_tobe {
+    margin-top: 0.2rem!important;
+    margin-bottom: 0.5rem!important;
+    height: 0.5rem;
+    height: 0.5rem;
+}
+
+
 
 /*style for widget target description */
 

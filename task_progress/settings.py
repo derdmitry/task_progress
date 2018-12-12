@@ -31,15 +31,23 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
+
+
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'progress',
+    'django.contrib.auth',
+    'django.contrib.admin',
     'bootstrap4',
 ]
+
+# !только для разработки
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+#________________________
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

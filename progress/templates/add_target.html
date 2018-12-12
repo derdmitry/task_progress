@@ -7,7 +7,6 @@
 {% block content %}
 
 
-
 <div class="container">
     <div class="row">
 
@@ -24,21 +23,20 @@
                 </center>
 
 
-
                 <form method="post" class="form-horizontal" role="form" action=''>
 
-                            {% csrf_token %}
+                    {% csrf_token %}
 
-                              <div class="form-group">
+                    <div class="form-group">
 
-                                  <label class="col-sm-4 control-label"> Описание </label>
-                            {{form.target_description}} <br>
-                                   <label class="col-sm-4 control-label"> Кол-во </label>
-                             {{form.target}} <br>
-                             <label class="col-sm-4 control-label"> Начало </label>
-                            {{form.start_date}} <br>
+                        <label class="col-sm-4 control-label"> Описание </label>
+                        {{form.target_description}} <br>
+                        <label class="col-sm-4 control-label"> Кол-во </label>
+                        {{form.target}} <br>
+                        <label class="col-sm-4 control-label"> Начало </label>
+                        {{form.start_date}} <br>
 
-                            <script>
+                        <script>
   $( function() {
     $( "#start_date" ).datepicker(
     { dateFormat: "dd.mm.yy",
@@ -55,15 +53,14 @@
     );
   } );
 
-  </script>
+
+                        </script>
 
 
+                        <label class="col-sm-4 control-label"> Конец </label>
+                        {{form.end_date}}
 
-
-                            <label class="col-sm-4 control-label"> Конец </label>
-                                  {{form.end_date}}
-
-                            <script>
+                        <script>
   $(function() {
     $( "#end_date" ).datepicker(
     { dateFormat: "dd.mm.yy",
@@ -80,51 +77,46 @@
     );
   } );
 
-                            </script>
-                            <br>
-
-                    {% if form.non_field_errors|length > 0%}
-                    <div class="alert alert-danger" role="alert">
-                        {{ form.non_field_errors }}
-                    </div>
-                    {%endif%}
-
-
-                                   <label class="col-sm-4 control-label">  Сделано </label>
-                            {{form.done}} <br>
-                                   <label class="col-sm-4 control-label"> Приоритет </label>
-                             {{form.priority}}
-
-                              </div>
-
-                            <!--<button type="submit" class="btn btn-primary btn-lg btn-block">Вход</button>-->
-                    <!--<a href="/progress/register" class="btn btn-secondary btn-lg btn-block" role="button"-->
-                       <!--aria-pressed="true">Регистрация</a>-->
-
-                    <input class="btn btn-success btn-lg btn-block" id="done" type="submit" name="submit" value="Сохранить"
-                            style ="margin-bottom: 0.5rem;" />
-
-                        </form>
-                <a href="/progress/add_target" class="btn btn-secondary btn-lg btn-block" role="button"
-                       aria-pressed="true">Очистить форму</a>
-                <a href="/progress/progress" class="btn btn-primary btn-lg btn-block" role="button"
-                       aria-pressed="true"> К списку задач </a>
-
-                 {% if posted_ok %}
-
-                        <script>
-   $("#done").remove()
 
                         </script>
+                        <br>
 
-                        <div class="alert alert-success" role="alert">
-                            Цель добавлена!
+                        {% if form.non_field_errors|length > 0%}
+                        <div class="alert alert-danger" role="alert">
+                            {{ form.non_field_errors }}
                         </div>
+                        {%endif%}
 
-                        <a href="/progress/add_target" class="btn btn-info btn-lg btn-block" role="button">Добавить еще</a>
+
+                        <label class="col-sm-4 control-label"> Сделано </label>
+                        {{form.done}} <br>
+                        <label class="col-sm-4 control-label"> Приоритет </label>
+                        {{form.priority}}
+
+                    </div>
+
+                    <!--<button type="submit" class="btn btn-primary btn-lg btn-block">Вход</button>-->
+                    <!--<a href="/progress/register" class="btn btn-secondary btn-lg btn-block" role="button"-->
+                    <!--aria-pressed="true">Регистрация</a>-->
+
+                    <input class="btn btn-success btn-lg btn-block" id="done" type="submit" name="submit"
+                           value="Сохранить"
+                           style="margin-bottom: 0.5rem;"/>
+
+                </form>
+                {% if posted_ok %}
+
+                <div class="alert alert-success" role="alert">
+                    Цель добавлена!
+                </div>
+                <a href="/progress/add_target" class="btn btn-info btn-lg btn-block" role="button">Добавить еще</a>
+
+                {% endif %}
+
+                <a href="/progress/progress" class="btn btn-primary btn-lg btn-block" role="button"
+                   aria-pressed="true"> К списку задач </a>
 
 
-                        {% endif %}
 
             </div>
         </div>
@@ -132,7 +124,5 @@
     </div>
 
 
-
-
-{% endblock %}
+    {% endblock %}
 

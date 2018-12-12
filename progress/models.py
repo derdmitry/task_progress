@@ -65,7 +65,15 @@ class Target(models.Model):
         task_duration = (self.end_date - self.start_date).days + 1
         target_per_day = self.target / task_duration
         to_be_done_today = target_per_day * ((current_date - self.start_date).days + 1)  # на сегодня
-        return to_be_done_today
+
+        if self.target == 0:
+            return 0
+        else:
+            to_be_done_today = to_be_done_today * 100/self.target
+            if to_be_done_today >=100:
+                return 100
+            else:
+                return int(to_be_done_today)
 
     f1 = property(_get_current_status)
     f2 = property(_get_persentage)

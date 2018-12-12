@@ -21,7 +21,7 @@
                     <hr class="my-4">
 
                     {%if user.is_authenticated %}
-                    Привет, {{user.username}} <a href="/progress/logout/">Выйти </a><br/>
+                    Привет, {{user.username}} <a href="/progress/login">Выйти </a><br/>
 
                     {%endif%}
                     <br>
@@ -108,15 +108,10 @@ $(document).ready(function(){
                     <!-- конец скрипта для кнопок -->
 
                     <button id="show{{task.id}}">+</button>
-
                     сделано: {{task.done}} <br>
-
-
                     {{task.word}}: разница в днях {{task.f1|floatformat:'1'}}
 
-
                     {% if task.target <= 0 %}
-
                     <div class="alert alert-warning" role="alert">
                         Нулевая цель выглядит странно
                     </div>
@@ -147,7 +142,19 @@ $(document).ready(function(){
 
                     </div>
 
+                    <div class="progress progress_tobe" >
 
+
+                        <div class="progress-bar" role="progressbar"
+                             style="width: {{task.todo_today}}%;"
+                             aria-valuenow="{{task.todo_today}}"
+                             aria-valuemin="0" aria-valuemax="100">
+
+                            <br>
+                        </div>
+
+
+                    </div>
 
 
                 </center>

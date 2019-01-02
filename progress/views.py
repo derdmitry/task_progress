@@ -140,6 +140,32 @@ def register(request):
                   {'user_form': user_form, 'registered': registered})
 
 
+@login_required
+def edit_profile(request, id):
+    from datetime import date
+    current_date = date.today()
+    user = User.objects.filter(pk=id)
+    current_user = user[0]
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=current_user)  # и передаем ее в instance
+        if form.is_valid():
+            # task.archive = 'yes'
+
+            form.save(commit=True)
+            posted_ok = True
+            messages.add_message(request, messages.SUCCESS, "Данные изменены, продолжаем работать")
+            return render(request, 'progress.html', locals())
+        else:
+            # form = TargetForm(instance=target)
+            errs = form.errors
+            return render(request, 'edit_profile.html', locals())
+    else:
+        form = UserForm(instance=current_user)
+
+    return render(request, 'edit_profile.html', {'form':form})
+
+
+
 # ________login_____________
 
 def user_login(request):
@@ -192,13 +218,7 @@ def user_logout(request):
     # Since we know the user is logged in, we can now just log them out.
     logout(request)
     # Take the user back to the homepage.
-    return redirect('registration/login.html')
-
-
-
-
-
-
+    return render(request, 'registration/login.html')
 
 @login_required
 def add_target(request):

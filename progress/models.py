@@ -75,12 +75,19 @@ class Target(models.Model):
             else:
                 return int(to_be_done_today)
 
+    def _left_todo(self):
+        if (self.target - self.done) > 0:
+            return (self.target - self.done)
+        else:
+            return 0
+
+
     f1 = property(_get_current_status)
     f2 = property(_get_persentage)
     word = property(_wording)
     daily = property(_todo_daily)
     todo_today = property(_tobe_done)
-
+    left_todo = property(_left_todo)
 
     class Meta:
         ordering = ['priority', 'target_description']

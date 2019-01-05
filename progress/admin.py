@@ -6,4 +6,5 @@ class TargetAdmin(admin.ModelAdmin):
     fields = ('target_description', 'target', 'start_date', 'end_date', 'done', 'priority')
     list_display = ('target_description', 'target', 'start_date', 'end_date', 'done', 'priority')
 
+
 admin.site.register(Target, TargetAdmin)

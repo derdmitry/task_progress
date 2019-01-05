@@ -16,7 +16,7 @@
                 <center>
                     <h1 class="display-4"> Вы зарегистрированы ! </h1>
                     <hr class="my-4">
-                    <a href="/progress" class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Войти</a>
+                    <a href="{% url 'login' %}" class="btn btn-secondary btn-lg btn-block" role="button" aria-pressed="true">Войти</a>
                 </center>
 
             </div>
@@ -58,9 +58,9 @@
 
                     <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block"
                            value="Сохранить данные"/>
-                    <a href="/progress/register" class="btn btn-secondary btn-lg btn-block" role="button"
+                    <a href="{% url 'register' %}" class="btn btn-secondary btn-lg btn-block" role="button"
                        aria-pressed="true">Очистить форму</a>
-                    <a href="/progress" class="btn  btn-success btn-lg btn-block" role="button" aria-pressed="true">Уже
+                    <a href="{% url 'login' %}" class="btn  btn-success btn-lg btn-block" role="button" aria-pressed="true">Уже
                         зарегистрированы? Войти</a>
                 </form>
                 {% endif%}

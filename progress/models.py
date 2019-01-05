@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Target(models.Model):
     user = models.ForeignKey(User)
-    target_description = models.CharField(max_length=300,)
+    target_description = models.CharField(max_length=300, )
     target = models.PositiveIntegerField(default=1)
     start_date = models.DateField()
     end_date = models.DateField()
@@ -25,7 +25,7 @@ class Target(models.Model):
         if target_per_day == 0:
             return target_per_day
 
-        diff_days =  (self.done - to_be_done) / target_per_day
+        diff_days = (self.done - to_be_done) / target_per_day
 
         return diff_days
 
@@ -44,10 +44,10 @@ class Target(models.Model):
         if self.f1 == 0:
             return "В графике".format()
         elif self.f1 > 0:
-            #return 'Впереди на {} {}'.format(self.f1, part2)
+            # return 'Впереди на {} {}'.format(self.f1, part2)
             return 'Впереди'
         else:
-            #return 'Отстаем на {} {}'.format(abs(self.f1), part2)
+            # return 'Отстаем на {} {}'.format(abs(self.f1), part2)
             return 'Отстаем'
 
     def _todo_daily(self):
@@ -55,7 +55,7 @@ class Target(models.Model):
         current_date = date.today()
         task_duration = (self.end_date - self.start_date).days + 1
         target_per_day = self.target / task_duration
-        #to_be_done = target_per_day * ((current_date - self.start_date).days + 1)  # на сегодня
+        # to_be_done = target_per_day * ((current_date - self.start_date).days + 1)  # на сегодня
         return target_per_day
 
     def _tobe_done(self):
@@ -69,8 +69,8 @@ class Target(models.Model):
         if self.target == 0:
             return 0
         else:
-            to_be_done_today = to_be_done_today * 100/self.target
-            if to_be_done_today >=100:
+            to_be_done_today = to_be_done_today * 100 / self.target
+            if to_be_done_today >= 100:
                 return 100
             else:
                 return int(to_be_done_today)
@@ -80,7 +80,6 @@ class Target(models.Model):
             return (self.target - self.done)
         else:
             return 0
-
 
     f1 = property(_get_current_status)
     f2 = property(_get_persentage)

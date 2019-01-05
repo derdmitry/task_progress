@@ -70,7 +70,7 @@
                     </div>
 
                 <button type="submit" class="btn btn-success btn-lg btn-block"> Да, удаляем</button>
-                     <a href='/progress/edit_target/{{target.id}}' class="btn btn-warning btn-lg btn-block" role="button"
+                     <a href='{% url 'edit_target' task.id%}' class="btn btn-warning btn-lg btn-block" role="button"
                        aria-pressed="true"  style ="margin-bottom: 0.5rem;"> Редактировать </a>
 
                 </form>
@@ -79,7 +79,7 @@
 
 
 
-                <a href="/progress/progress" class="btn btn-primary btn-lg btn-block" role="button"
+                <a href="{% url 'progress' %}" class="btn btn-primary btn-lg btn-block" role="button"
                        aria-pressed="true"> К списку задач </a>
 
 

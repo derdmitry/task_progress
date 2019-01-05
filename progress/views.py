@@ -20,7 +20,7 @@ def index(request):
 
 @login_required
 def progress(request):
-    #основная страница (все задачи)
+    # основная страница (все задачи)
     from datetime import date
     current_date = date.today()
 
@@ -29,7 +29,7 @@ def progress(request):
     # новый прогресс
     if request.method == 'POST':
         task_id = request.POST.get('id')
-        new_progress = request.POST.get('new_progress') #получили новое значание
+        new_progress = request.POST.get('new_progress')  # получили новое значание
 
         instances = Target.objects.filter(pk=task_id)
         instance = instances[0]
@@ -162,8 +162,7 @@ def edit_profile(request, id):
     else:
         form = UserForm(instance=current_user)
 
-    return render(request, 'edit_profile.html', {'form':form})
-
+    return render(request, 'edit_profile.html', {'form': form})
 
 
 # ________login_____________
@@ -219,6 +218,7 @@ def user_logout(request):
     logout(request)
     # Take the user back to the homepage.
     return render(request, 'registration/login.html')
+
 
 @login_required
 def add_target(request):

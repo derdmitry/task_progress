@@ -5,7 +5,7 @@ from .models import Target
 
 
 class TargetForm(forms.ModelForm):
-    #target_description = forms.CharField(widget=forms.Textarea(attrs={'class':'widget_descr'}), max_length=200)
+    # target_description = forms.CharField(widget=forms.Textarea(attrs={'class':'widget_descr'}), max_length=200)
 
     def clean(self):
         cleaned_data = super(TargetForm, self).clean()
@@ -20,7 +20,7 @@ class TargetForm(forms.ModelForm):
     class Meta:
         model = Target
         fields = ['target_description', 'target', 'start_date', 'end_date', 'done', 'priority']
-        #exclude = ('user',)
+        # exclude = ('user',)
         start_date = forms.DateField(localize=True)
 
         labels = {
@@ -34,24 +34,24 @@ class TargetForm(forms.ModelForm):
 
         widgets = {'start_date': forms.DateInput(attrs={'id': 'start_date'}),
                    'end_date': forms.DateInput(attrs={'id': 'end_date'}),
-                   'target_description': forms.Textarea(attrs={'class':'widget_descr'}),
-        }
-
+                   'target_description': forms.Textarea(attrs={'class': 'widget_descr'}),
+                   }
 
 
 class AddProgressForm(forms.ModelForm):
     class Meta:
         model = Target
         fields = ['done', ]
-        exclude = ('user', 'target_description', 'target', 'start_date', 'end_date', 'priority' )
+        exclude = ('user', 'target_description', 'target', 'start_date', 'end_date', 'priority')
         labels = {
             'done': 'Уже сделано',
 
         }
 
-#for registration
+
+# for registration
 class UserForm(forms.ModelForm):
-    #password = forms.CharField(widget=forms.PasswordInput())
+    # password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
@@ -71,4 +71,3 @@ class UserForm(forms.ModelForm):
 
         help_texts = {'username': 'Буквы, цифры и символы _, @, +, . - '
                       }
-

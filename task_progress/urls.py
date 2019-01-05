@@ -19,6 +19,6 @@ from django.contrib import admin
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
-    url(r'^progress/', include('progress.urls')),
+    url(r'^', include('progress.urls')),
 
 ]

@@ -24,7 +24,7 @@
 
                 </center>
 
-                <form id="login_form" method="post" action="/progress/login/">
+                <form id="login_form" method="post" action="{% url 'login' %}">
                     {% csrf_token %}
                     <div class="form-group">
 
@@ -36,11 +36,11 @@
                                placeholder="Ведите пароль">
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block">Вход</button>
-                    <a href="/progress/register" class="btn btn-secondary btn-lg btn-block" role="button"
+                    <a href="{% url 'register' %}" class="btn btn-secondary btn-lg btn-block" role="button"
                        aria-pressed="true">Регистрация</a>
                 </form>
                 <br>
-               <span style="font-size: 1rem;">  Забыли пароль?  <a href="password_reset" class="">Восстановить</a> </span>
+               <span style="font-size: 1rem;">  Забыли пароль?  <a href="{% url 'password_reset' %}" class="">Восстановить</a> </span>
             </div>
         </div>
         <div class="col"></div>

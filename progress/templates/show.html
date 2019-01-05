@@ -18,7 +18,7 @@
         <h1> эксперимент </h1>
         сегодня {{current_date}}
          <br>
-<a href='add_target'> Добавить новую цель </a> <br>
+<a href='{% url 'add_target' %}'> Добавить новую цель </a> <br>
 
 
 
@@ -49,8 +49,8 @@
     сделано: {{task.done}} <br>
     начало: {{task.start_date|date:"d.m.y"}} конец: {{task.end_date|date:" d.m.y"}} <br>
     разница в днях: {{task.f1}} проценты: {{task.f2}} <br>
-    Редактировать: <a class = '' href= '/progress/edit_target/{{task.id}}'> <img src="{% static "progress/edit.png" %}" alt="edit target"/> </a>
-    Удалить: <a class = '' href= '/progress/delete_target/{{task.id}}'> <img src="{% static "progress/trash.png" %}" alt="delete target"/> </a>
+    Редактировать: <a class = '' href= '{% url 'edit_target' task.id%}'> <img src="{% static "progress/edit.png" %}" alt="edit target"/> </a>
+    Удалить: <a class = '' href= '{% url 'delete_target' task.id%}'> <img src="{% static "progress/trash.png" %}" alt="delete target"/> </a>
 
 
 <div class="progress">

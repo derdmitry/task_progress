@@ -109,11 +109,11 @@
                 <div class="alert alert-success" role="alert">
                     Цель добавлена!
                 </div>
-                <a href="/progress/add_target" class="btn btn-info btn-lg btn-block" role="button">Добавить еще</a>
+                <a href="{% url 'add_target' %}" class="btn btn-info btn-lg btn-block" role="button">Добавить еще</a>
 
                 {% endif %}
 
-                <a href="/progress/progress" class="btn btn-primary btn-lg btn-block" role="button"
+                <a href="{% url 'progress' %}" class="btn btn-primary btn-lg btn-block" role="button"
                    aria-pressed="true"> К списку задач </a>
 
 

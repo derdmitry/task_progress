@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %} Регистрация {% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="row">
+
+        <div class="col"></div>
+
+        <div class="col-md-6 col-sm-12">
+
+            <div class="jumbotron">
+                <center>
+                    <h1 class="display-4"> Изменить данные </h1>
+                    <p class="lead"> не все данные можно изменить!</p>
+                    <hr class="my-4">
+                </center>
+
+                <form id="" method="post" action="" role="form" class="form-horizontal">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"> {{field.label}}</label>
+                        <div class="col-sm-10">
+                            {{ field }}
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                    <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block"
+                           value="Сохранить данные"/>
+
+                </form>
+
+         <a href="/progress/progress" class="btn btn-primary btn-lg btn-block" role="button"
+                       aria-pressed="true"> К списку задач </a>
+
+
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+
+{%endblock%}

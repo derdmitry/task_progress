@@ -70,3 +70,27 @@ h1 {
    margin-bottom:0.5rem;
    width:100%;
 }
+
+.iconinfo, .icons a{
+color: #a4b9ce;
+}
+
+.icons {
+text-align: right;
+}
+
+.tracking{
+padding: 0rem 2rem;
+
+}
+
+.grey {
+color: grey;
+}
+
+.iconinfo {}
+
+.navbar-nav {
+    list-style: none;
+    text-transform: uppercase;
+    font-size: 1rem;}
